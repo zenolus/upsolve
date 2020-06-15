@@ -49,12 +49,12 @@
     font-size: 16px;
 }
 
-.handle-box:hover > .handle-input{
+.open > .handle-input{
     width: 240px;
     padding: 0 6px;
 }
 
-.handle-box:hover > .handle-button{
+.open > .handle-button{
     background: #1d1e22;
 }
 

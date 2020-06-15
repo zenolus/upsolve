@@ -34,9 +34,9 @@ class Home extends Component{
       hideSearch : false,
       counts : { easy : 3, medium : 5, hard : 2 },
       mainTransition : false,
-      inputPlaceholder : "Enter Codeforces Handle...",
       showStopwatch : false,
-      timedProblem : {}
+      timedProblem : {},
+      openForm : true
     }
   }
   
@@ -58,10 +58,6 @@ class Home extends Component{
 
   handleHiddenQuery = event => event.preventDefault()
 
-  removePlaceholder = () => this.setState({inputPlaceholder: ""})
-
-  showPlaceholder = () => this.setState({inputPlaceholder: "Enter Codeforces Handle..."})
-
   handleHandleChange = event => this.setState({userHandle: event.target.value})
 
   handleReset = () => {
@@ -73,13 +69,17 @@ class Home extends Component{
 
   stopTimer = () => this.setState({showStopwatch: false})
 
+  componentDidMount(){
+    setTimeout(() => this.setState({openForm : false}), 1000)
+  }
+
   render(){
     return (
       <div className = "home"> 
         
-        <form onSubmit = {this.state.hideSearch ? this.handleHiddenQuery : this.handleHandleQuery}>
-          <div className = {`handle-box ` + (this.state.hideSearch ? "hidden-handle" : "show-handle")}>
-            <input className = "handle-input" required name = "" disabled = {this.state.hideSearch} value = {this.state.userHandle} onChange = {this.handleHandleChange} placeholder = {this.state.inputPlaceholder} onFocus = {this.removePlaceholder} onBlur = {this.showPlaceholder}/>
+        <form onSubmit = {this.state.hideSearch ? this.handleHiddenQuery : this.handleHandleQuery} onMouseEnter = {() => this.setState({openForm: true})} onMouseLeave = {() => this.setState({openForm: false})}>
+          <div className = {`handle-box ` + (this.state.openForm ? "open " : "") + (this.state.hideSearch ? "hidden-handle" : "show-handle")}>
+            <input className = "handle-input" style = {{caretColor: (this.state.userHandle === "" ? "whitesmoke" : "transparent")}} required name = "" disabled = {this.state.hideSearch} value = {this.state.userHandle} onChange = {this.handleHandleChange} placeholder = "Codeforces Handle" />
             <button type = "submit" className = "handle-button">
               <IconContext.Provider value = {{color: "whitesmoke", size: "2em"}}><FaUserCircle /></IconContext.Provider>
             </button>
