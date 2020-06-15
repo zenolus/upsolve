@@ -25,13 +25,14 @@ const renderTime = ({ remainingTime }) => {
   );
 };
 
-const start = (setPlaying, setShowPlay) => {
+const start = (setPlaying, setShowPlay, problem) => {
   setPlaying(true)
   setShowPlay(false)
+  window.open(`https://codeforces.com/contest/${problem["contestId"]}/problem/${problem["index"]}`, "_blank")
 }
 
 const verify = (handle, cid, index, setPlaying) => {
-  request(`http://localhost:8080/verify/${handle}/${cid}/${index}`, (err, res, body) => {
+  request(`https://upsolve.herokuapp.com/verify/${handle}/${cid}/${index}`, (err, res, body) => {
     const data = JSON.parse(res.body)
     if(data["errorMessage"] !== undefined)
       window.alert(data["errorMessage"])
@@ -98,7 +99,7 @@ const Timer = props => {
         </div>
         <span>
           <IconContext.Provider value = {{color: "#ff5e6c", size: "2em"}}>
-            {showPlay ? <AiOutlineSend onClick = {() => start(setPlaying, setShowPlay)} style = {{cursor: "pointer"}} /> : null}
+            {showPlay ? <AiOutlineSend onClick = {() => start(setPlaying, setShowPlay, props.problem)} style = {{cursor: "pointer"}} /> : null}
             {playing ? <AiOutlineFileDone onClick = {() => verify(props.handle, props.problem["contestId"], props.problem["index"], setPlaying)} style = {{cursor: "pointer"}} /> : null}
           </IconContext.Provider>
         </span>

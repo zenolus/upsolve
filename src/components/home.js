@@ -42,7 +42,7 @@ class Home extends Component{
   
   handleHandleQuery = event => {
     this.setState({problemData : {}, hideSearch : false})
-    request(`http://localhost:8080/suggest/${this.state.userHandle}/${this.state.counts.easy}/${this.state.counts.medium}/${this.state.counts.hard}`, (error, response, body) => {
+    request(`https://upsolve.herokuapp.com/suggest/${this.state.userHandle}/${this.state.counts.easy}/${this.state.counts.medium}/${this.state.counts.hard}`, (error, response, body) => {
       const data = JSON.parse(response.body)
       if(data["errorMessage"] !== undefined){
         window.alert(data["errorMessage"])

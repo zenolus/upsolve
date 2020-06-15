@@ -11,6 +11,8 @@
     "react-bootstrap": "^1.0.1",
     "react-countdown-circle-timer": "^2.2.0",
     "react-dom": "^16.13.1",
+    "react-favicon": "0.0.18",
+    "react-helmet": "^6.1.0",
     "react-icons": "^3.10.0",
     "react-notification-badge": "^1.5.1",
     "react-scripts": "3.4.1",
