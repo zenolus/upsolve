@@ -15,10 +15,11 @@ const rankColor = difficulty => {
 
 const Card = props => {
   const [showActions, setShowActions] = useState(false)
+  const [active, setActive] = useState(false)
   return(
-    <div className = {"card " + props.difficulty} onMouseEnter = {() => setShowActions(true)} onMouseLeave = {() => setShowActions(false)}>
+    <div className = {"card " + props.difficulty} onMouseEnter = {() => {setShowActions(true); setTimeout(() => setActive(true), 1000)}} onMouseLeave = {() => {setShowActions(false); setTimeout(() => setActive(false), 1000)}}>
       <span style = {{float: "left", width: (showActions ? "60%" : "100%")}}>
-        <a href = {`https://codeforces.com/contest/${props.problem["contestId"]}/problem/${props.problem["index"]}`} target="_blank" rel="noopener noreferrer">{props.problem["name"]}</a>
+        <a href = {active ? `https://codeforces.com/contest/${props.problem["contestId"]}/problem/${props.problem["index"]}` : "#"} target={active ? "_blank" : null} rel="noopener noreferrer">{props.problem["name"]}</a>
         {!showActions ? null :
           <NotificationBadge count={props.problem["rating"]} style = {{backgroundColor: rankColor(props.difficulty), color: "#1d1e22", top: "0", right: "0"}} effect={Effect.ROTATE_X}/>
         }
