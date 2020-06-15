@@ -1,0 +1,40 @@
+.timerDiv{
+    padding-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    min-width: 300px;
+}
+
+.problemStatistics{
+    margin-left: auto;
+    margin-right: auto;
+    color: whitesmoke;
+}
+
+.problemStatistics table, .problemStatistics div{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.problemStatistics .field{
+    text-align: left;
+    width: 150px;
+}
+
+.problemStatistics .data{
+    text-align: right;
+}
+
+.problemStatistics a{
+    text-decoration: none;
+    color: #86FFF8;
+}
+
+.num{
+    font-size: 30px;
+}
+
+.numside{
+    color: whitesmoke!important;
+}

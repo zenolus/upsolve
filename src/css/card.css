@@ -1,0 +1,59 @@
+.card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 60px;
+    margin: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.card:hover{
+    justify-content: flex-start;
+    transition: justify-content 0.3s;
+}
+
+.easy{
+    background-size: 200% 200%;
+    background-image: linear-gradient(to top, #3E7BE6 50%, #28323C 50%);
+    border-right: 2px #3E56E6 dotted;
+    transition: background-position 0.3s;
+}
+
+.easy:hover{
+    background-image: linear-gradient(to top, #3E56E6 51%, #28323C 50%);
+    background-position: 0 100%;
+    transition: background-position 0.3s;
+}
+
+.medium{
+    background-size: 200% 200%;
+    background-image: linear-gradient(to top, #F6AA4D 50%, #28323C 50%);
+    border-right: 2px #F6994D dotted;
+    transition: background-position 0.3s;
+}
+
+.medium:hover{
+    background-image: linear-gradient(to top, #F6994D 51%, #28323C 50%);
+    background-position: 0 100%;
+    transition: background-position 0.3s;
+}
+
+.hard{
+    background-size: 200% 200%;
+    background-image: linear-gradient(to top, #E03737 50%, #28323C 50%);
+    border-right: 2px #ED3B3B dotted;
+    transition: background-position 0.3s;
+}
+
+.hard:hover{
+    background-image: linear-gradient(to top, #ED3B3B 51%, #28323C 50%);
+    background-position: 0 100%;
+    transition: background-position 0.3s;
+}
+
+.card a{
+    text-decoration: none;
+    color: inherit;
+}

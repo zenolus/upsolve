@@ -1,0 +1,136 @@
+.home{
+    height: 100%;
+}
+
+.handle-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #ff5e6c;
+    transform: translate(-50%, -50%);
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px;
+    transition: 0.4s all;
+}
+
+.handle-button{
+    color: #ff5e6c;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.handle-input{
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: #1d1e22;
+    font-size: 20px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 0px;
+    text-align: center;
+}
+
+::placeholder{
+    color: #1d1e22;
+    font-size: 16px;
+}
+
+.handle-box:hover > .handle-input{
+    width: 240px;
+    padding: 0 6px;
+}
+
+.handle-box:hover > .handle-button{
+    background: #1d1e22;
+}
+
+.hidden-handle{
+    transform: scale(0);
+}
+
+.hidden-handle:hover{
+    transform: scale(0);
+}
+
+@keyframes showArea{
+    from {transform: scale(0);}
+    to {transform: scale(1);}
+}
+
+@keyframes hideArea{
+    from {transform: scale(1);}
+    to {transform: scale(0);}
+}
+
+.mainArea{
+    width: 100%;
+    height: 100%;
+    color: whitesmoke;
+}
+
+.show-main{
+    animation: showArea 1s;
+}
+
+.hidden-main{
+    transform: scale(0);
+    animation: hideArea 1s;
+}
+
+.reset-button{
+    color: #ff5e6c;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+}
+
+.user{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 20px;
+}
+
+.userInfo{
+    padding-top: 100px;
+}
+
+.profile-pic{
+    border-radius: 50%;
+}
+
+.ratingBadge{
+    width: 40px;
+    height: 10px;
+}
+
+.problemSuggestions{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    min-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
