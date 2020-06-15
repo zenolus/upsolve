@@ -7,6 +7,8 @@ import { MdDoNotDisturbOn } from 'react-icons/md'
 import { IconContext } from 'react-icons';
 import Card from './card.js'
 import Timer from './timer';
+import { withCookies } from 'react-cookie'
+
 const request = require('request')
 
 const rankColor = rating => {
@@ -36,7 +38,7 @@ class Home extends Component{
       mainTransition : false,
       showStopwatch : false,
       timedProblem : {},
-      openForm : true
+      openForm : true,
     }
   }
   
@@ -51,9 +53,10 @@ class Home extends Component{
       else{
         for(var key in data)  this.setState({[key] : data[key]})
         this.setState({hideSearch: true, mainTransition: true})
+        this.props.cookies.set('userHandle', this.state.userHandle, { path: '/', maxAge: 86400000 })
       }
     })
-    event.preventDefault()
+    if(event) event.preventDefault()
   }
 
   handleHiddenQuery = event => event.preventDefault()
@@ -63,6 +66,7 @@ class Home extends Component{
   handleReset = () => {
     this.setState({hideSearch: false})
     setTimeout(() => this.setState({userHandle: "", userFName: "", userLName: "", userRating: 0, problemData: {}, userRank: "", userPic: "", userOrg: ""}), 1000)
+    this.props.cookies.remove('userHandle', { path: '/' })
   }
 
   startTimer = problem => this.setState({showStopwatch: true, timedProblem: problem})
@@ -71,6 +75,7 @@ class Home extends Component{
 
   componentDidMount(){
     setTimeout(() => this.setState({openForm : false}), 1000)
+    this.setState({userHandle : this.props.cookies.get('userHandle') || ""}, () => (this.state.userHandle !== "") ? this.handleHandleQuery() : null)
   }
 
   render(){
@@ -133,4 +138,4 @@ class Home extends Component{
   }
 }
 
-export default Home
+export default withCookies(Home)
