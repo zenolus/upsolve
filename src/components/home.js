@@ -39,6 +39,7 @@ class Home extends Component{
       showStopwatch : false,
       timedProblem : {},
       openForm : true,
+      spanClassName : "problemSpan",
     }
   }
   
@@ -79,12 +80,14 @@ class Home extends Component{
   }
 
   render(){
+    if(this.state.hideSearch && this.state.spanClassName !== "problemSpan showSpan") setTimeout(() => this.setState({spanClassName : "problemSpan showSpan"}), 1000)
+    if(!this.state.hideSearch && this.state.spanClassName !== "problemSpan") this.setState({spanClassName : "problemSpan"})
     return (
       <div className = "home"> 
         
         <form onSubmit = {this.state.hideSearch ? this.handleHiddenQuery : this.handleHandleQuery} onMouseEnter = {() => this.setState({openForm: true})} onMouseLeave = {() => this.setState({openForm: false})}>
           <div className = {`handle-box ` + (this.state.openForm ? "open " : "") + (this.state.hideSearch ? "hidden-handle" : "show-handle")}>
-            <input className = "handle-input" style = {{caretColor: (this.state.userHandle === "" ? "whitesmoke" : "transparent")}} required name = "" disabled = {this.state.hideSearch} value = {this.state.userHandle} onChange = {this.handleHandleChange} placeholder = "Codeforces Handle" />
+            <input className = "handle-input" spellCheck = {false} style = {{caretColor: (this.state.userHandle === "" ? "whitesmoke" : "transparent")}} required name = "" disabled = {this.state.hideSearch} value = {this.state.userHandle} onChange = {this.handleHandleChange} placeholder = "Codeforces Handle" />
             <button type = "submit" className = "handle-button">
               <IconContext.Provider value = {{color: "whitesmoke", size: "2em"}}><FaUserCircle /></IconContext.Provider>
             </button>
@@ -112,17 +115,17 @@ class Home extends Component{
             
           </div>
 
-          {this.state.problemData.easy === undefined ? null :
+          {(this.state.problemData.easy === undefined) ? null :
           <div className = "problemSuggestions">
-            <span>
+            <span className = {this.state.spanClassName}>
               {this.state.problemData.easy.map(problem => (
                 <tr key = {problem["name"]}><Card problem = {problem} difficulty = "easy" startTimer = {this.startTimer} /></tr>
               ))}</span>
-            <span>
+            <span className = {this.state.spanClassName}>
               {this.state.problemData.medium.map(problem => (
                 <tr key = {problem["name"]}><Card problem = {problem} difficulty = "medium" startTimer = {this.startTimer} /></tr>
               ))}</span>
-            <span>
+            <span className = {this.state.spanClassName}>
               {this.state.problemData.hard.map(problem => (
                 <tr key = {problem["name"]}><Card problem = {problem} difficulty = "hard" startTimer = {this.startTimer} /></tr>
               ))}</span>
