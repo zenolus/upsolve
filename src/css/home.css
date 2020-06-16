@@ -42,6 +42,7 @@
     line-height: 40px;
     width: 0px;
     text-align: center;
+    caret-color: transparent;
 }
 
 ::placeholder{
@@ -83,12 +84,12 @@
 }
 
 .show-main{
-    animation: showArea 1s;
+    animation: showArea 1s forwards;
 }
 
 .hidden-main{
     transform: scale(0);
-    animation: hideArea 1s;
+    animation: hideArea 1s forwards;
 }
 
 .reset-button{
@@ -136,25 +137,20 @@
 }
 
 .problemSuggestions .problemSpan:nth-child(1){
-    animation: showArea 1s;
+    animation: showArea 1s forwards;
     animation-delay: 0.33s;
 }
 
 .problemSuggestions .problemSpan:nth-child(2){
-    animation: showArea 0.66s;
+    animation: showArea 0.66s forwards;
     animation-delay: 0.67s;
 }
 
 .problemSuggestions .problemSpan:nth-child(3){
-    animation: showArea 0.33s;
+    animation: showArea 0.33s forwards;
     animation-delay: 1s;
 }
 
 .problemSpan{
     transform: scale(0);
-}
-
-.problemSpan.showSpan{
-    transform: scale(1);
-    transition: transform 0.5s;
 }
