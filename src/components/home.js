@@ -8,7 +8,7 @@ import { IconContext } from 'react-icons';
 import Card from './card.js'
 import Timer from './timer';
 import { withCookies } from 'react-cookie'
-
+require('dotenv').config()
 const request = require('request')
 
 const rankColor = rating => {
@@ -44,11 +44,11 @@ class Home extends Component{
   
   handleHandleQuery = event => {
     this.setState({problemData : {}, hideSearch : false})
-    request(`https://upsolve.herokuapp.com/suggest/${this.state.userHandle}/${this.state.counts.easy}/${this.state.counts.medium}/${this.state.counts.hard}`, (error, response, body) => {
+    request(`${process.env.REACT_APP_SERVER}/suggest/${this.state.userHandle}/${this.state.counts.easy}/${this.state.counts.medium}/${this.state.counts.hard}`, (error, response, body) => {
       const data = JSON.parse(response.body)
       if(data["errorMessage"] !== undefined){
         window.alert(data["errorMessage"])
-        this.setState({userHandle: "", problemData: {}})
+        this.setState({userHandle: "", problemData: {}, hideSearch: false})
       }
       else{
         for(var key in data)  this.setState({[key] : data[key]})
@@ -69,9 +69,21 @@ class Home extends Component{
     this.props.cookies.remove('userHandle', { path: '/' })
   }
 
-  startTimer = problem => this.setState({showStopwatch: true, timedProblem: problem})
+  startTimer = (problem, diff) => {
+    const dProb = problem
+    dProb["difficulty"] = diff
+    this.setState({showStopwatch: true, timedProblem: dProb})
+  }
 
   stopTimer = () => this.setState({showStopwatch: false})
+
+  solved = (diff, cid, index) => this.state.problemData[diff].forEach((prob, idx) => {
+    if(prob["contestId"] === cid && prob["index"] === index){
+      const newData = this.state.problemData
+      newData[diff][idx]["solved"] = true
+      this.setState({problemData: newData})
+    }
+  })
 
   componentDidMount(){
     setTimeout(() => this.setState({openForm : false}), 1000)
@@ -101,7 +113,7 @@ class Home extends Component{
               <td>{this.state.userFName} <a href = {`http://codeforces.com/profile/${this.state.userHandle}`} target="_blank" rel="noopener noreferrer" style = {{color: rankColor(this.state.userRating), textDecoration: "none"}}>{this.state.userHandle}</a> {this.state.userLName}</td>
               <td className = "ratingBadge"><NotificationBadge count={this.state.userRating} style = {{backgroundColor: rankColor(this.state.userRating), color: "#1d1e22", top: "0", right: "0"}} effect={Effect.SCALE}/></td>
               </tr></tbody></table>
-              <span className = "reset-button" onClick = {this.handleReset}>
+              <span title = "Change user" className = "reset-button" onClick = {this.handleReset}>
                 <IconContext.Provider value = {{color: "#ff5e6c", size: "2em"}}><MdDoNotDisturbOn /></IconContext.Provider>
               </span>
             </span>
@@ -116,22 +128,22 @@ class Home extends Component{
           <div className = "problemSuggestions">
             <span className = {this.state.spanClassName}>
               {this.state.problemData.easy.map(problem => (
-                <Card problem = {problem} difficulty = "easy" startTimer = {this.startTimer} />
+                <Card handle = {this.state.userHandle} problem = {problem} difficulty = "easy" startTimer = {this.startTimer} />
               ))}</span>
             <span className = {this.state.spanClassName}>
               {this.state.problemData.medium.map(problem => (
-                <tr key = {problem["name"]}><Card problem = {problem} difficulty = "medium" startTimer = {this.startTimer} /></tr>
+                <Card handle = {this.state.userHandle} problem = {problem} difficulty = "medium" startTimer = {this.startTimer} />
               ))}</span>
             <span className = {this.state.spanClassName}>
               {this.state.problemData.hard.map(problem => (
-                <tr key = {problem["name"]}><Card problem = {problem} difficulty = "hard" startTimer = {this.startTimer} /></tr>
+                <Card handle = {this.state.userHandle} problem = {problem} difficulty = "hard" startTimer = {this.startTimer} />
               ))}</span>
           </div>}
 
         </div>}
 
         {!this.state.showStopwatch ? null :
-          <Timer problem = {this.state.timedProblem} stopTimer = {this.stopTimer} handle = {this.state.userHandle}/>
+          <Timer problem = {this.state.timedProblem} solved = {this.solved} stopTimer = {this.stopTimer} handle = {this.state.userHandle}/>
         }
       </div>
     )

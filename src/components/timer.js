@@ -5,6 +5,7 @@ import { AiOutlineSend, AiOutlineFileDone, AiOutlineRead } from 'react-icons/ai'
 import '../css/timer.css'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import request from 'request'
+require('dotenv').config()
 
 let timeTaken = 0
 
@@ -31,13 +32,14 @@ const start = (setPlaying, setShowPlay, problem) => {
   window.open(`https://codeforces.com/contest/${problem["contestId"]}/problem/${problem["index"]}`, "_blank")
 }
 
-const verify = (handle, cid, index, setPlaying) => {
-  request(`https://upsolve.herokuapp.com/verify/${handle}/${cid}/${index}`, (err, res, body) => {
+const verify = (handle, diff, cid, index, setPlaying, solved) => {
+  request(`${process.env.REACT_APP_SERVER}/verify/${handle}/${cid}/${index}`, (err, res, body) => {
     const data = JSON.parse(res.body)
     if(data["errorMessage"] !== undefined)
       window.alert(data["errorMessage"])
     else if(data["verified"]){
       setPlaying(false)
+      solved(diff, cid, index)
     }
     else window.alert("AC submission not found!")
   })
@@ -51,7 +53,7 @@ const Timer = props => {
 
   return(
     <div className = "timerDiv">
-      <div>
+      <div title = "Cancel">
         <IconContext.Provider value = {{size: "1.5em", color: "#ff5e6c"}}>
           <span style = {{cursor: "pointer", padding: "10px"}} onClick = {props.stopTimer}><GiCancel /></span>
         </IconContext.Provider>
@@ -97,10 +99,10 @@ const Timer = props => {
             {renderTime}
           </CountdownCircleTimer>
         </div>
-        <span>
+        <span title = {playing ? "Verify Submission" : "Start Solving"}>
           <IconContext.Provider value = {{color: "#ff5e6c", size: "2em"}}>
             {showPlay ? <AiOutlineSend onClick = {() => start(setPlaying, setShowPlay, props.problem)} style = {{cursor: "pointer"}} /> : null}
-            {playing ? <AiOutlineFileDone onClick = {() => verify(props.handle, props.problem["contestId"], props.problem["index"], setPlaying)} style = {{cursor: "pointer"}} /> : null}
+            {playing ? <AiOutlineFileDone onClick = {() => verify(props.handle, props.problem["difficulty"], props.problem["contestId"], props.problem["index"], setPlaying, props.solved)} style = {{cursor: "pointer"}} /> : null}
           </IconContext.Provider>
         </span>
       </div>
