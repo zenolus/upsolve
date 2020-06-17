@@ -5,6 +5,7 @@ import TopBar from './components/topbar.js'
 import { Helmet } from 'react-helmet'
 import Favicon from 'react-favicon';
 import { CookiesProvider } from 'react-cookie'
+import Footer from './components/footer';
 
 const App = props => {
   return (
@@ -14,6 +15,7 @@ const App = props => {
         <Favicon url = {require('./favicon.png')}/>
         <TopBar />
         <Home />
+        <Footer />
       </div>
     </CookiesProvider>
   );

@@ -126,15 +126,15 @@ class Home extends Component{
 
           {(this.state.problemData.easy === undefined) ? null :
           <div className = "problemSuggestions">
-            <span className = {this.state.spanClassName}>
+            <span className = "problemSpan">
               {this.state.problemData.easy.map(problem => (
                 <Card handle = {this.state.userHandle} problem = {problem} difficulty = "easy" startTimer = {this.startTimer} />
               ))}</span>
-            <span className = {this.state.spanClassName}>
+            <span className = "problemSpan">
               {this.state.problemData.medium.map(problem => (
                 <Card handle = {this.state.userHandle} problem = {problem} difficulty = "medium" startTimer = {this.startTimer} />
               ))}</span>
-            <span className = {this.state.spanClassName}>
+            <span className = "problemSpan">
               {this.state.problemData.hard.map(problem => (
                 <Card handle = {this.state.userHandle} problem = {problem} difficulty = "hard" startTimer = {this.startTimer} />
               ))}</span>
