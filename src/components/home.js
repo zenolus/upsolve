@@ -54,6 +54,9 @@ class Home extends Component{
       }
       else{
         for(var key in data)  this.setState({[key] : data[key]})
+        let probData = this.state.problemData
+        probData.upsolve = probData.upsolve.sort((a, b) => a["solvedBy"] < b["solvedBy"])
+        this.setState({problemData: probData})
         this.setState({hideSearch: true, mainTransition: true})
         this.props.cookies.set('userHandle', this.state.userHandle, { path: '/', maxAge: 86400000 })
       }
