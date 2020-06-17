@@ -4,7 +4,6 @@ import NotificationBadge from 'react-notification-badge';
 import {Effect} from 'react-notification-badge';
 import { FaUserCircle } from 'react-icons/fa'
 import { MdDoNotDisturbOn } from 'react-icons/md'
-import { RiUserHeartLine } from 'react-icons/ri'
 import { IconContext } from 'react-icons';
 import Card from './card.js'
 import Timer from './timer';
@@ -40,7 +39,6 @@ class Home extends Component{
       showStopwatch : false,
       timedProblem : {},
       openForm : true,
-      userCount : 0
     }
   }
   
@@ -89,10 +87,6 @@ class Home extends Component{
 
   componentDidMount(){
     setTimeout(() => this.setState({openForm : false}), 1000)
-    request(`${process.env.REACT_APP_SERVER}/usercount`, (err, res, body) => {
-      const data = JSON.parse(res.body)
-      this.setState({userCount: data.count})
-    })
     this.setState({userHandle : this.props.cookies.get('userHandle') || ""}, () => (this.state.userHandle !== "") ? this.handleHandleQuery() : null)
   }
 
@@ -126,10 +120,6 @@ class Home extends Component{
             <span className = "organization" style = {{fontSize: "15px"}}>{this.state.userOrg}</span>
           </div>
 
-          <div className = "userStatistics">
-            
-          </div>
-
           {(this.state.problemData.easy === undefined) ? null : <>
             <h2>UpSolve from your last contest</h2>
             <div className = "upsolveDiv">
@@ -158,12 +148,6 @@ class Home extends Component{
         {!this.state.showStopwatch ? null :
           <Timer problem = {this.state.timedProblem} solved = {this.solved} stopTimer = {this.stopTimer} handle = {this.state.userHandle}/>
         }
-
-        <div className = "uCount">
-          <IconContext.Provider value = {{size: "1.75em", color: "#E20047"}}>
-            <RiUserHeartLine /> <span>{this.state.userCount}</span>
-          </IconContext.Provider> 
-        </div>
       </div>
     )
   }

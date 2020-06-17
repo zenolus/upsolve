@@ -107,10 +107,6 @@
     font-size: 20px;
 }
 
-.userInfo{
-    padding-top: 100px;
-}
-
 .profile-pic{
     border-radius: 50%;
 }
@@ -161,14 +157,4 @@
     transform: scale(0);
     animation: showArea 1s forwards;
     animation-delay: 0.33s;
-}
-
-.uCount{
-    display: flex;
-    align-items: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    color: whitesmoke;
-    z-index: 1000;
 }
