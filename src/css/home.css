@@ -158,6 +158,9 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    transform: scale(0);
+    animation: showArea 1s forwards;
+    animation-delay: 0.33s;
 }
 
 .uCount{
@@ -167,4 +170,5 @@
     bottom: 0;
     left: 0;
     color: whitesmoke;
+    z-index: 1000;
 }

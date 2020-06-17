@@ -69,7 +69,7 @@ const Card = props => {
           }
         </span>
         {!showActions ? null :
-          <span style = {{float: "right", width: "40%"}}>
+          <span className = "actions">
             <IconContext.Provider value = {{size: "1.25em", color: "whitesmoke"}}>
               <span title = "Timer" style = {{padding: "3px", cursor: "pointer"}} onClick = {() => props.startTimer(props.problem, props.difficulty)}>
                 <RiTimerLine />

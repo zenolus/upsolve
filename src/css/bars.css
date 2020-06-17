@@ -1,11 +1,40 @@
+@font-face {
+    font-family: elianto;
+    src: url(Elianto-Regular.otf);
+}
+
 .header{
     position: absolute;
     top: 0;
+    z-index: 1000;
+    padding-left: 20px;
+    padding-top: 10px;
+    font-family: elianto;
+}
+
+.hicon{
+    width: 2.5em;
+    height: 2.5em;
+}
+
+.htext{
+    position: relative;
+    top: -5px;
+    user-select: none;
+    color: whitesmoke;
+}
+
+.high{
+    font-size: 2em;
 }
 
 .footer{
     position: fixed;
     bottom: 0;
     right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    background-color: #1d1e22;
 }
 

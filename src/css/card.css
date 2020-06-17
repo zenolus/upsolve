@@ -79,3 +79,10 @@
 .hiddenCard{
     animation: hideCard 0.3s forwards;
 }
+
+.actions{
+    float: right;
+    width: 40%;
+    position: relative;
+    top: 5px;
+}
