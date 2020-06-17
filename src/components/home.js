@@ -4,6 +4,7 @@ import NotificationBadge from 'react-notification-badge';
 import {Effect} from 'react-notification-badge';
 import { FaUserCircle } from 'react-icons/fa'
 import { MdDoNotDisturbOn } from 'react-icons/md'
+import { RiUserHeartLine } from 'react-icons/ri'
 import { IconContext } from 'react-icons';
 import Card from './card.js'
 import Timer from './timer';
@@ -39,6 +40,7 @@ class Home extends Component{
       showStopwatch : false,
       timedProblem : {},
       openForm : true,
+      userCount : 0
     }
   }
   
@@ -87,6 +89,10 @@ class Home extends Component{
 
   componentDidMount(){
     setTimeout(() => this.setState({openForm : false}), 1000)
+    request(`${process.env.REACT_APP_SERVER}/usercount`, (err, res, body) => {
+      const data = JSON.parse(res.body)
+      this.setState({userCount: data.count})
+    })
     this.setState({userHandle : this.props.cookies.get('userHandle') || ""}, () => (this.state.userHandle !== "") ? this.handleHandleQuery() : null)
   }
 
@@ -124,27 +130,40 @@ class Home extends Component{
             
           </div>
 
-          {(this.state.problemData.easy === undefined) ? null :
-          <div className = "problemSuggestions">
-            <span className = "problemSpan">
-              {this.state.problemData.easy.map(problem => (
-                <Card handle = {this.state.userHandle} problem = {problem} difficulty = "easy" startTimer = {this.startTimer} />
-              ))}</span>
-            <span className = "problemSpan">
-              {this.state.problemData.medium.map(problem => (
-                <Card handle = {this.state.userHandle} problem = {problem} difficulty = "medium" startTimer = {this.startTimer} />
-              ))}</span>
-            <span className = "problemSpan">
-              {this.state.problemData.hard.map(problem => (
-                <Card handle = {this.state.userHandle} problem = {problem} difficulty = "hard" startTimer = {this.startTimer} />
-              ))}</span>
-          </div>}
-
+          {(this.state.problemData.easy === undefined) ? null : <>
+            <h2>UpSolve from your last contest</h2>
+            <div className = "upsolveDiv">
+              {this.state.problemData.upsolve.map(problem => (
+                <Card handle = {this.state.userHandle} problem = {problem} difficulty = "upsolve" startTimer = {this.startTimer} />
+              ))}
+            </div>
+            <h2>Suggested Practice problems</h2>
+            <div className = "problemSuggestions">
+              <span className = "problemSpan">
+                {this.state.problemData.easy.map(problem => (
+                  <Card handle = {this.state.userHandle} problem = {problem} difficulty = "easy" startTimer = {this.startTimer} />
+                ))}</span>
+              <span className = "problemSpan">
+                {this.state.problemData.medium.map(problem => (
+                  <Card handle = {this.state.userHandle} problem = {problem} difficulty = "medium" startTimer = {this.startTimer} />
+                ))}</span>
+              <span className = "problemSpan">
+                {this.state.problemData.hard.map(problem => (
+                  <Card handle = {this.state.userHandle} problem = {problem} difficulty = "hard" startTimer = {this.startTimer} />
+                ))}</span>
+            </div></>
+            }
         </div>}
 
         {!this.state.showStopwatch ? null :
           <Timer problem = {this.state.timedProblem} solved = {this.solved} stopTimer = {this.stopTimer} handle = {this.state.userHandle}/>
         }
+
+        <div className = "uCount">
+          <IconContext.Provider value = {{size: "1.75em", color: "#E20047"}}>
+            <RiUserHeartLine /> <span>{this.state.userCount}</span>
+          </IconContext.Provider> 
+        </div>
       </div>
     )
   }

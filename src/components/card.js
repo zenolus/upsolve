@@ -12,7 +12,7 @@ require('dotenv').config()
 const rankColor = difficulty => {
   if(difficulty === "easy") return "#F6AA4D"
   else if(difficulty === "medium") return "#E03737"
-  else return "#3E7BE6"
+  else if(difficulty === "hard")  return "#3E7BE6"
 }
 
 const Card = props => {

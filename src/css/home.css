@@ -1,7 +1,3 @@
-.home{
-    height: 100%;
-}
-
 .handle-box{
     position: absolute;
     top: 50%;
@@ -78,8 +74,7 @@
 }
 
 .mainArea{
-    width: 100%;
-    height: 100%;
+    padding-bottom: 1.75em;
     color: whitesmoke;
 }
 
@@ -153,4 +148,23 @@
 
 .problemSpan{
     transform: scale(0);
+}
+
+.upsolveDiv{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.uCount{
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    color: whitesmoke;
 }

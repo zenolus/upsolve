@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     width: 300px;
-    height: 60px;
+    height: 70px;
     margin: 5px;
     padding-left: 10px;
     padding-right: 10px;
@@ -49,6 +49,19 @@
 
 .hard:hover{
     background-image: linear-gradient(to top, #ED3B3B 51%, #28323C 50%);
+    background-position: 0 100%;
+    transition: background-position 0.3s;
+}
+
+.upsolve{
+    background-size: 200% 200%;
+    background-image: linear-gradient(to top, #6EC85A 50%, #28323C 50%);
+    border-right: 2px #00AA0C dotted;
+    transition: background-position 0.3s;
+}
+
+.upsolve:hover{
+    background-image: linear-gradient(to top, #00AA0C 51%, #28323C 50%);
     background-position: 0 100%;
     transition: background-position 0.3s;
 }

@@ -63,7 +63,7 @@ const Timer = props => {
           <table><tbody>
             <tr>
               <td className = "field">Problem Name: </td>
-              <td className = "value">
+              <td className = "data">
                 <a href = {`https://codeforces.com/contest/${props.problem["contestId"]}/problem/${props.problem["index"]}`} target="_blank" rel="noopener noreferrer">
                   {props.problem["name"]} ({props.problem["contestId"]}{props.problem["index"]})
                 </a>
@@ -71,16 +71,18 @@ const Timer = props => {
             </tr>
             <tr>
               <td className = "field">Problem Tags: </td>
-              <td className = "value" style = {{color: "#F6AA4D"}}>{props.problem["tags"].map((tag, idx) => (tag + (idx+1 < props.problem["tags"].length ? " | " : "")))}</td>
+              <td className = "data" style = {{color: "#F6AA4D"}}>{props.problem["tags"].map((tag, idx) => (tag + (idx+1 < props.problem["tags"].length ? " | " : "")))}</td>
             </tr>
             <tr>
               <td className = "field">Solved by: </td>
-              <td className = "value">{props.problem["solvedBy"]}</td>
+              <td className = "data">{props.problem["solvedBy"]}</td>
             </tr>
+            {props.problem["score"] === undefined ? null :
             <tr>
               <td className = "field">Recommendation Score: </td>
-              <td className = "value">{props.problem["score"]}</td>
+              <td className = "data">{props.problem["score"]}</td>
             </tr>
+            }
           </tbody></table>
         </div>
         <div style = {{padding: "10px"}}>
