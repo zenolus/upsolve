@@ -1,0 +1,65 @@
+
+.handle-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #ff5e6c;
+    transform: translate(-50%, -50%);
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px;
+    transition: 0.4s all;
+}
+
+.handle-button{
+    color: #ff5e6c;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.handle-input{
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: #1d1e22;
+    font-size: 20px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 0px;
+    text-align: center;
+    caret-color: transparent;
+}
+
+::placeholder{
+    color: #1d1e22;
+    font-size: 16px;
+}
+
+.open > .handle-input{
+    width: 240px;
+    padding: 0 6px;
+}
+
+.open > .handle-button{
+    background: #1d1e22;
+}
+
+.hidden-handle{
+    transform: scale(0);
+}
+
+.hidden-handle:hover{
+    transform: scale(0);
+}

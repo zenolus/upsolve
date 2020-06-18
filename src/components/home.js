@@ -4,6 +4,8 @@ import NotificationBadge from 'react-notification-badge';
 import {Effect} from 'react-notification-badge';
 import { FaUserCircle } from 'react-icons/fa'
 import { MdDoNotDisturbOn } from 'react-icons/md'
+import { GoSettings } from 'react-icons/go'
+import { RiRefreshLine } from 'react-icons/ri'
 import { IconContext } from 'react-icons';
 import Card from './card.js'
 import Timer from './timer';
@@ -44,7 +46,8 @@ class Home extends Component{
   
   handleHandleQuery = event => {
     this.setState({problemData : {}, hideSearch : false})
-    request(`${process.env.REACT_APP_SERVER}/suggest/${this.state.userHandle}/${this.state.counts.easy}/${this.state.counts.medium}/${this.state.counts.hard}`, (error, response, body) => {
+    const url = `${process.env.REACT_APP_SERVER}/suggest/${this.state.userHandle}/${this.state.counts.easy}/${this.state.counts.medium}/${this.state.counts.hard}` + (this.state.ratingLow ? `/${this.state.ratingLow}/${this.state.ratingHigh}` : ``)
+    request(url, (error, response, body) => {
       const data = JSON.parse(response.body)
       if(data["errorMessage"] !== undefined){
         window.alert(data["errorMessage"])
@@ -96,7 +99,7 @@ class Home extends Component{
         
         <form onSubmit = {this.state.hideSearch ? this.handleHiddenQuery : this.handleHandleQuery} onMouseEnter = {() => this.setState({openForm: true})} onMouseLeave = {() => this.setState({openForm: false})}>
           <div className = {`handle-box ` + (this.state.openForm ? "open " : "") + (this.state.hideSearch ? "hidden-handle" : "show-handle")}>
-            <input className = "handle-input" spellCheck = {false} required name = "" disabled = {this.state.hideSearch} value = {this.state.userHandle} onChange = {this.handleHandleChange} placeholder = "Codeforces Handle" />
+            <input className = "handle-input" spellCheck = {false} required name = "handle" disabled = {this.state.hideSearch} value = {this.state.userHandle} onChange = {this.handleHandleChange} placeholder = "Codeforces Handle" />
             <button type = "submit" className = "handle-button">
               <IconContext.Provider value = {{color: "whitesmoke", size: "2em"}}><FaUserCircle /></IconContext.Provider>
             </button>
@@ -104,7 +107,7 @@ class Home extends Component{
         </form>
         
         {!this.state.mainTransition || this.state.showStopwatch ? null :
-        <div className = {"mainArea " + (this.state.hideSearch ? "show-main" : "hidden-main")}>
+        <div className = {"mainArea " + (this.state.hideSearch ? "show-main" : "hidden-main")} id = "#main">
           
           <div className = "userInfo">
             <img className = "profile-pic" src = {`https:${this.state.userPic}`} alt = {this.state.userHandle} />
@@ -127,7 +130,13 @@ class Home extends Component{
                 <Card handle = {this.state.userHandle} problem = {problem} difficulty = "upsolve" startTimer = {this.startTimer} />
               ))}
             </div>
-            <h2>Suggested Practice problems</h2>
+            <div>
+              <h2>Suggested Practice problems
+              <a href = "#settings" className = "seticon"><IconContext.Provider value = {{size: "1em", color: "#98FF98"}}>
+                <GoSettings />
+              </IconContext.Provider></a></h2>
+            </div>
+            {this.state.counts.easy+this.state.counts.medium+this.state.counts.hard > 0 && this.state.ratingLow <= this.state.ratingHigh? 
             <div className = "problemSuggestions">
               <span className = "problemSpan">
                 {this.state.problemData.easy.map(problem => (
@@ -141,13 +150,35 @@ class Home extends Component{
                 {this.state.problemData.hard.map(problem => (
                   <Card handle = {this.state.userHandle} problem = {problem} difficulty = "hard" startTimer = {this.startTimer} />
                 ))}</span>
-            </div></>
+            </div>
+            :
+            <div><h3>No Problems Found! Seems like you have mastered this range of problems!</h3></div>
+            }</>
             }
         </div>}
 
         {!this.state.showStopwatch ? null :
           <Timer problem = {this.state.timedProblem} solved = {this.solved} stopTimer = {this.stopTimer} handle = {this.state.userHandle}/>
         }
+
+        <div id="settings" className="popup">
+          <a href="#main" className="close">&times;</a>
+          <h3>Settings</h3>
+          Rating Range :&nbsp;
+          <input className = "setinp" type = "number" step = "100" name = "low" required value = {this.state.ratingLow} onChange = {e => this.setState({ratingLow: e.target.value})} />
+          -
+          <input className = "setinp" type = "number" step = "100" name = "high" required value = {this.state.ratingHigh} onChange = {e => this.setState({ratingHigh: e.target.value})} />
+          <hr />
+          Problem Counts :&nbsp;
+          <input className = "setinp" type = "number" name = "easy" required value = {this.state.counts.easy} onChange = {e => this.setState({counts: {...this.state.counts, easy : e.target.value}})} />
+          <input className = "setinp" type = "number" name = "medium" required value = {this.state.counts.medium} onChange = {e => this.setState({counts: {...this.state.counts, medium : e.target.value}})} />
+          <input className = "setinp" type = "number" name = "hard" required value = {this.state.counts.hard} onChange = {e => this.setState({counts: {...this.state.counts, hard : e.target.value}})} />
+          <hr />
+          <div style = {{cursor: "pointer"}} onClick = {() => {this.handleHandleQuery(); window.history.replaceState(null, null, "#main")}}><IconContext.Provider value = {{size: "2em", color: "#F6AA4D"}}>
+            <RiRefreshLine />
+          </IconContext.Provider></div>
+          <div style = {{fontSize: "14px"}}>Click on the Refresh Icon to load</div>
+        </div>
       </div>
     )
   }
