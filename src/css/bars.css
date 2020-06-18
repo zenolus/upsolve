@@ -36,7 +36,7 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    height: 30px;
+    height: 40px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -52,6 +52,5 @@
     height: 100%;
     width: 200px;
     height: 100%;
-    background-color: #98FF98;
     color: #1d1e22;
 }
