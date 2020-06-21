@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
 import { GiCancel } from 'react-icons/gi'
-import { AiOutlineSend, AiOutlineFileDone, AiOutlineRead } from 'react-icons/ai'
+import { AiOutlineSend, AiOutlineFileDone, AiOutlineRead, AiOutlineEye } from 'react-icons/ai'
 import '../css/timer.css'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import request from 'request'
@@ -50,6 +50,7 @@ const Timer = props => {
   timeTaken = 0
   const [playing, setPlaying] = useState(false)
   const [showPlay, setShowPlay] = useState(true)
+  const [showTags, setShowTags] = useState(false)
 
   return(
     <div className = "timerDiv">
@@ -71,7 +72,17 @@ const Timer = props => {
             </tr>
             <tr>
               <td className = "field">Problem Tags: </td>
-              <td className = "data" style = {{color: "#F6AA4D"}}>{props.problem["tags"].map((tag, idx) => (tag + (idx+1 < props.problem["tags"].length ? " | " : "")))}</td>
+              <td className = "data" style = {{color: "#F6AA4D"}}>
+                {showTags ?
+                  props.problem["tags"].map((tag, idx) => (tag + (idx+1 < props.problem["tags"].length ? " | " : "")))
+                  :
+                  <IconContext.Provider value = {{size: "2em"}}>
+                    <span style = {{cursor: "pointer"}} onClick = {() => setShowTags(true)}>
+                      <AiOutlineEye />
+                    </span>
+                  </IconContext.Provider>
+                }
+              </td>
             </tr>
             <tr>
               <td className = "field">Solved by: </td>
