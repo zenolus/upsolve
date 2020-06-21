@@ -33,7 +33,7 @@ const start = (setPlaying, setShowPlay, problem) => {
 }
 
 const verify = (handle, diff, cid, index, setPlaying, solved) => {
-  request(`${process.env.REACT_APP_SERVER}/verify/${handle}/${cid}/${index}`, (err, res, body) => {
+  request(`http://${process.env.REACT_APP_SERVER}/verify/${handle}/${cid}/${index}`, (err, res, body) => {
     const data = JSON.parse(res.body)
     if(data["errorMessage"] !== undefined)
       window.alert(data["errorMessage"])

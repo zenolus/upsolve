@@ -40,7 +40,7 @@ const selectStyles = {
 
 const Footer = ({setComp}) => {
   const [userCount, setUC] = useState(0)
-  request(`${process.env.REACT_APP_SERVER}/usercount`, (err, res, body) => {
+  request(`http://${process.env.REACT_APP_SERVER}/usercount`, (err, res, body) => {
     const data = JSON.parse(res.body)
     setUC(data.count)
   })

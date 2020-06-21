@@ -43,7 +43,7 @@ class Swot extends Component{
   
   handleHandleQuery = event => {
     this.setState({hideSearch : false})
-    const url = `${process.env.REACT_APP_SERVER}/swot/${this.state.userHandle}`
+    const url = `http://${process.env.REACT_APP_SERVER}/swot/${this.state.userHandle}`
     request(url, (error, response, body) => {
       const data = JSON.parse(response.body)
       if(data["errorMessage"] !== undefined){
