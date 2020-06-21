@@ -46,7 +46,7 @@ class Home extends Component{
   
   handleHandleQuery = event => {
     this.setState({problemData : {}, hideSearch : false})
-    const url = `http://${process.env.REACT_APP_SERVER}/suggest/${this.state.userHandle}/${this.state.counts.easy}/${this.state.counts.medium}/${this.state.counts.hard}` + (this.state.ratingLow ? `/${this.state.ratingLow}/${this.state.ratingHigh}` : ``)
+    const url = `${process.env.REACT_APP_SERVER}/suggest/${this.state.userHandle}/${this.state.counts.easy}/${this.state.counts.medium}/${this.state.counts.hard}` + (this.state.ratingLow ? `/${this.state.ratingLow}/${this.state.ratingHigh}` : ``)
     request(url, (error, response, body) => {
       const data = JSON.parse(response.body)
       if(data["errorMessage"] !== undefined){

@@ -24,7 +24,7 @@ const Card = props => {
     const choice = window.confirm(`Are you sure you want to skip the problem ${props.problem["name"]}? It will be considered as one of the problems that you were able to solve. This action can not be reverted!`)
     if(choice){
       const pid = props.problem["contestId"]+props.problem["index"]
-      request(`http://${process.env.REACT_APP_SERVER}/skip/${props.handle}/${pid}`, (err, res, body) => {
+      request(`${process.env.REACT_APP_SERVER}/skip/${props.handle}/${pid}`, (err, res, body) => {
         const data = JSON.parse(res.body)
         if(data["errorMessage"] !== undefined)  window.alert(data["errorMessage"])
         else{
@@ -39,7 +39,7 @@ const Card = props => {
     const choice = window.confirm(`Snoozing problem: ${props.problem["name"]}\nIt will be available again after 48 hours!`)
     if(choice){
       const pid = props.problem["contestId"]+props.problem["index"]
-      request(`http://${process.env.REACT_APP_SERVER}/later/${props.handle}/${pid}`, (err, res, body) => {
+      request(`${process.env.REACT_APP_SERVER}/later/${props.handle}/${pid}`, (err, res, body) => {
         const data = JSON.parse(res.body)
         if(data["errorMessage"] !== undefined)  window.alert(data["errorMessage"])
         else{
