@@ -27,7 +27,7 @@ class Home extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      userHandle : "abc",
+      userHandle : "",
       userRating : 0,
       userFName : "",
       userLName : "",
@@ -126,7 +126,7 @@ class Home extends Component{
           {(this.state.problemData.easy === undefined) ? null : <>
             <h2>UpSolve from your last contest</h2>
             <div className = "upsolveDiv">
-              {this.state.problemData.upsolve.map(problem => (
+              {this.state.problemData.upsolve.sort((a, b) => a["solvedBy"] < b["solvedBy"]).map(problem => (
                 <Card handle = {this.state.userHandle} problem = {problem} difficulty = "upsolve" startTimer = {this.startTimer} />
               ))}
             </div>
