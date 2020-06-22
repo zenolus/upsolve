@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { IconContext } from 'react-icons'
 import { RiPatreonLine, RiUserHeartLine } from 'react-icons/ri'
 import Select from 'react-select'
@@ -6,6 +6,7 @@ import '../css/bars.css'
 import Home from './home.js'
 import Team from './team.js'
 import Swot from './swot.js'
+import { pure } from 'recompose'
 const request = require('request')
 
 const dropOptions = [
@@ -40,10 +41,12 @@ const selectStyles = {
 
 const Footer = ({setComp}) => {
   const [userCount, setUC] = useState(0)
-  request(`${process.env.REACT_APP_SERVER}/usercount`, (err, res, body) => {
-    const data = JSON.parse(res.body)
-    setUC(data.count)
-  })
+  useEffect(() => {
+    request(`${process.env.REACT_APP_SERVER}/usercount`, (err, res, body) => {
+      const data = JSON.parse(res.body)
+      setUC(data.count)
+    })
+  }, [setUC])
   return (
     <div className = "footer">
       <div className = "uCount">
@@ -75,4 +78,4 @@ const Footer = ({setComp}) => {
   )
 }
 
-export default Footer
+export default pure(Footer)

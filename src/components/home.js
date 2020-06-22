@@ -130,6 +130,21 @@ class Home extends Component{
                 <Card handle = {this.state.userHandle} problem = {problem} difficulty = "upsolve" startTimer = {this.startTimer} />
               ))}
             </div>
+            <h2>Recommended upsolves from past contests</h2>
+            <div>
+              <span className = "problemSpan">
+                {this.state.problemData.past.easy.map(problem => (
+                  <Card handle = {this.state.userHandle} problem = {problem} difficulty = "easy" startTimer = {this.startTimer} />
+                ))}</span>
+              <span className = "problemSpan">
+                {this.state.problemData.past.medium.map(problem => (
+                  <Card handle = {this.state.userHandle} problem = {problem} difficulty = "medium" startTimer = {this.startTimer} />
+                ))}</span>
+              <span className = "problemSpan">
+                {this.state.problemData.past.hard.map(problem => (
+                  <Card handle = {this.state.userHandle} problem = {problem} difficulty = "hard" startTimer = {this.startTimer} />
+                ))}</span>
+            </div>
             <div>
               <h2>Suggested Practice problems
               <a href = "#settings" className = "seticon"><IconContext.Provider value = {{size: "1em", color: "#98FF98"}}>

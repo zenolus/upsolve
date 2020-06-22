@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import NotificationBadge from 'react-notification-badge';
-import {Effect} from 'react-notification-badge';
 import '../css/card.css'
 import { IconContext } from 'react-icons';
 import { RiTimerLine } from 'react-icons/ri'
@@ -65,7 +64,7 @@ const Card = props => {
         <span style = {{float: "left", width: (showActions ? "60%" : "100%")}}>
           <a href = {active ? `https://codeforces.com/contest/${props.problem["contestId"]}/problem/${props.problem["index"]}` : "#"} target={active ? "_blank" : null} rel="noopener noreferrer">{props.problem["name"]}</a>
           {!showActions ? null :
-            <NotificationBadge count={props.problem["rating"]} style = {{backgroundColor: rankColor(props.difficulty), color: "#1d1e22", top: "0", right: "0"}} effect={Effect.ROTATE_X}/>
+            <NotificationBadge count={props.problem["rating"]} style = {{backgroundColor: rankColor(props.difficulty), color: "#1d1e22", top: "0", right: "0"}} effect={["scale(1)", "scale(1)", {}, {}]}/>
           }
         </span>
         {!showActions ? null :
