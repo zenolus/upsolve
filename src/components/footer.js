@@ -41,20 +41,17 @@ const selectStyles = {
 
 const Footer = ({setComp}) => {
   const [userCount, setUC] = useState(0)
+  /*
   useEffect(() => {
     request(`${process.env.REACT_APP_SERVER}/usercount`, (err, res, body) => {
       const data = JSON.parse(res.body)
       setUC(data.count)
     })
+    
   }, [setUC])
+  */
   return (
     <div className = "footer">
-      <div className = "uCount">
-        <IconContext.Provider value = {{size: "1.75em", color: "#E20047"}}>
-          <RiUserHeartLine /> <span style = {{position: "relative", top: "-5px"}}>{userCount}</span>
-        </IconContext.Provider> 
-      </div>
-
       <div className = "tabs">
         <Select
           styles = {selectStyles}
